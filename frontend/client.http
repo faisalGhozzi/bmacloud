@@ -1,0 +1,6 @@
+POST http://localhost/bmacloud/api/src/controllers/login.php
+
+{
+    "login": "sysadmin",
+    "password" : "bmacloud123"
+}
