@@ -8,7 +8,6 @@ header('Access-Control-Allow-Methods: GET, POST');
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-
 use services\Database;
 use repository\BoxRepository;
 use PDO;
@@ -39,8 +38,23 @@ class BoxController {
         // Convert result to JSON
         $jsonResult = json_encode($cleanedResults);
         // Echo or return the JSON-encoded result
-        echo json_encode(json_decode($jsonResult));
+        echo $jsonResult;
+        // echo json_encode(json_decode($jsonResult));
         // echo json_encode((new BoxRepository($this->conn))->getBoxes(), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getBoxStatus(){
+        var_dump($_GET);
+        $boxid = $_GET['boxid'];
+        $skey = $_GET['skey'];
+        $sql = 'SELECT `svalue`, `ts` FROM `box_status` WHERE `boxid` = :boxid AND `skey` = :skey';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':boxid', $boxid);
+        $stmt->bindParam(':skey', $skey);
+        $stmt->execute();
+        // var_dump($stmt->debugDumpParams());
+        $result = $stmt->fetch();
+        echo json_encode($result);
     }
 }
 

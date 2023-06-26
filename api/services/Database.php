@@ -2,6 +2,7 @@
 
 namespace services;
 use PDO;
+use PDOException;
 
 class Database{
     private $db_host = 'localhost';

@@ -14,6 +14,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 use services\Database;
 use services\JwtHandler;
 use PDO;
+use PDOException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
