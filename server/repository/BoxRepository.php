@@ -1,6 +1,6 @@
 <?php
 
-namespace api\repository;
+namespace server\repository;
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");

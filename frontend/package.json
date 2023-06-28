@@ -1,5 +1,6 @@
 {
-  "name": "resources",
+  "name": "bmacloud",
+  "homepage": "http://192.168.7.223",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

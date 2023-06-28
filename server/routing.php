@@ -12,17 +12,17 @@ ini_set('display_errors', '1');
 // require './controllers/BoxController.php';
 
 require('Api.php');
-use Api\Api;
+use server\Api;
 require "services/Database.php";
 use services\Database;
 
 
 require('controllers/BoxController.php');
-use api\controllers\BoxController;
+use server\controllers\BoxController;
 require('controllers/AnlageController.php');
-use api\controllers\AnlageController;
+use server\controllers\AnlageController;
 require('repository/BoxRepository.php');
-use api\repository\BoxRepository;
+use server\repository\BoxRepository;
 $current_url = $_SERVER["REQUEST_URI"];
 
 // Handle query string
@@ -34,9 +34,9 @@ if(strpos($current_url, '?')){
 // Routes
 
 $urls = [
-    '/bmacloud/api/boxes' => ['BoxController@getBoxes'],
-    '/bmacloud/api/boxes/status' => ['BoxController@getBoxStatus'],
-    '/bmacloud/api/anlage/id' => ['AnlageController@getAnlageById']
+    '/bmacloud/server/boxes' => ['BoxController@getBoxes'],
+    '/bmacloud/server/boxes/status' => ['BoxController@getBoxStatus'],
+    '/bmacloud/server/anlage/id' => ['AnlageController@getAnlageById']
 ];
 
 // Check if route available

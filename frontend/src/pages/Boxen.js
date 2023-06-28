@@ -1,43 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
+import * as AiIcons from "react-icons/ai";
 import * as FiIcons from "react-icons/fi";
 // import axios from "axios";
 
-export default function Boxen() {
+export default function Boxen(props) {
   const [listBoxes, setListBoxes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useContext(UserContext);
 
   const fetchBoxes = async () => {
-    await fetch("http://localhost/bmacloud/api/boxes")
-    .then(response => response.json())
-    .then(data => {
-      return data;
-    })
-    .then(async data => {
-      await Promise.all(data.map((e, index, array) => {
-        return fetch(`http://localhost/bmacloud/api/boxes/status?boxid=${data[index].boxid}&skey=bc66_pegel`)
-        .then(response => response.json())
-        .then(data => {
-          array[index] = {...e, ...data};
-        })
-      })).catch(e => {
-        console.log(e)
+    await fetch(
+      `http://localhost/bmacloud/server/boxes?mandant=${user.mandant}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      })
+      .then(async (data) => {
+        await Promise.all(
+          data.map((e, index, array) => {
+            return fetch(
+              `http://localhost/bmacloud/server/boxes/status?boxid=${data[index].boxid}&skey=bc66_pegel`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                array[index] = { ...e, ...data };
+              });
+          })
+        ).catch((e) => {
+          console.error(e);
+        });
+        return data;
+      })
+      .then(async (data) => {
+        await Promise.all(
+          data.map((e, index, array) => {
+            return fetch(
+              `http://localhost/bmacloud/server/anlage/id?aid=${data[index].aid}&mandant=${user.mandant}`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                array[index] = { ...e, ...data };
+              });
+          })
+        ).catch((e) => {
+          console.error(e);
+        });
+        return data;
+      })
+      .then(async (data) => {
+        await Promise.all(
+          data.map((e, index, array) => {
+            return fetch(
+              `http://localhost/bmacloud/server/boxes/status/boxid=${data[index].aid}&skey=protokoll`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                array[index] = { ...e, ...data };
+              });
+          })
+        ).catch((e) => {
+          console.error(e);
+        });
+        setListBoxes(data);
       });
-      return data;
-    })
-    .then(async data => {
-      await Promise.all(data.map((e, index, array) => {
-        return fetch(`http://localhost/bmacloud/api/anlage/id?aid=${data[index].aid}`)
-        .then(response => response.json())
-        .then(data => {
-          array[index] = {...e, ...data};
-        })
-      })).catch(e => {
-        console.log(e)
-      });
-      setListBoxes(data)
-    })
-  }
+  };
 
   useEffect(() => {
     fetchBoxes().then(() => {
@@ -103,38 +132,33 @@ export default function Boxen() {
     }
   }
 
-  function renderVerzogerung(data){
-    if(data.last_message_ts > 0 && data.last_message > 0){
-      return parseInt(data.last_message - data.last_message_ts) + " Sek."
+  function renderVerzogerung(data) {
+    if (data.last_message_ts > 0 && data.last_message > 0) {
+      return parseInt(data.last_message - data.last_message_ts) + " Sek.";
     }
     return "";
   }
 
-  function formatted_string(pad, user_str, pad_pos="")
-  {
-    if (typeof user_str === 'undefined') 
-      return pad;
-    if (pad_pos === 'l')
-      {
+  function formatted_string(pad, user_str, pad_pos = "") {
+    if (typeof user_str === "undefined") return pad;
+    if (pad_pos === "l") {
       return (pad + user_str).slice(-pad.length);
-      }
-    else 
-      {
+    } else {
       return (user_str + pad).substring(0, pad.length);
-      }
+    }
   }
 
-  function renderVersion(data){
-    if(data.version !== ""){
-      if(data.version >= 200){
-        return "V3."+formatted_string("00",data.version-200);
-      }else if(data.version>=100){
-        return "V2."+formatted_string("00",data.version-100);
-      }else{
-        return "V1."+data.version
+  function renderVersion(data) {
+    if (data.version !== "") {
+      if (data.version >= 200) {
+        return "V3." + formatted_string("00", data.version - 200);
+      } else if (data.version >= 100) {
+        return "V2." + formatted_string("00", data.version - 100);
+      } else {
+        return "V1." + data.version;
       }
-    }else{
-      return ""
+    } else {
+      return "";
     }
   }
   return (
@@ -189,6 +213,7 @@ export default function Boxen() {
                               Verzögerung
                             </th>
                             <th>Version</th>
+                            <th>-TBD-</th>
                             <th>Aktion</th>
                           </tr>
                         </thead>
@@ -210,8 +235,64 @@ export default function Boxen() {
                               <td>{data.gname}</td>
                               <td>{renderVerzogerung(data)}</td>
                               <td>{renderVersion(data)}</td>
+                              <td>{/*To fill later*/}</td>
                               <td>
-                                <button>hello</button>
+                                <div className="dropdown">
+                                  <a
+                                    href="javascript:void(0);"
+                                    className="btn btn-default btn-xs dropdown-toggle"
+                                    role="button"
+                                    id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                  >
+                                    <small>Aktion</small>
+                                  </a>
+                                  <ul
+                                    className="dropdown-menu pull-right text-left"
+                                    aria-labelledby="dropdownMenuLink"
+                                  >
+                                    <li>
+                                      <a href="" className="dropdown-item">
+                                        Bearbeiten
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="" className="dropdown-item">
+                                        Live-Meldungen
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="" className="dropdown-item">
+                                        Log
+                                      </a>
+                                    </li>
+                                    {data.mqtt_ts > 0 ?? (
+                                      <>
+                                        <li>
+                                          <a href="" className="dropdown-item">
+                                            Statusaktualisierung
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="" className="dropdown-item">
+                                            MQTT-Ping
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="" className="dropdown-item">
+                                            Sende Updates zur Box
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="" className="dropdown-item">
+                                            Neustart der Box
+                                          </a>
+                                        </li>
+                                      </>
+                                    )}
+                                  </ul>
+                                </div>
                               </td>
                             </tr>
                           ))}

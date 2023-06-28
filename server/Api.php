@@ -1,6 +1,6 @@
 <?php
 
-namespace api;
+namespace server;
 
 class Api{
     public static function routing($current_url, $urls){
@@ -22,7 +22,7 @@ class Api{
                     return "Controller not found";
                 }
 
-                $class = "api\controllers\\$className";
+                $class = "server\controllers\\$className";
                 $object = new $class();
 
                 $object->$function();

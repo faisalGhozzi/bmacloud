@@ -2,10 +2,11 @@
 
 namespace services;
 
-require ('../../api/vendor/autoload.php');
+require ('../../server/vendor/autoload.php');
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Exception;
 
 class JwtHandler{
     protected $jwt_secret;

@@ -1,6 +1,6 @@
 <?php
 
-namespace api\controllers;
+namespace server\controllers;
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
@@ -8,8 +8,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
- require ("../../api/services/Database.php");
- require ("../../api/services/JwtHandler.php");
+ require ("../../server/services/Database.php");
+ require ("../../server/services/JwtHandler.php");
 
 use services\Database;
 use services\JwtHandler;

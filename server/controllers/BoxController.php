@@ -1,6 +1,6 @@
 <?php
 
-namespace api\controllers;
+namespace server\controllers;
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
@@ -23,24 +23,27 @@ class BoxController {
      * Fetching all available maintenance boxes
      */
     public function getBoxes(){
-        $query = "SELECT * FROM `box` order by boxid";
-        $stmt = $this->conn->query($query);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+        $mandant = $_GET["mandant"];
+        $sql = 'SELECT * FROM `box` WHERE `mandant` = :mandant ORDER BY `boxid`';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':mandant', $mandant);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($result);
         // Set headers for JSON response
 
-        $cleanedResults = array_map(function ($row) {
-            return array_map(function ($value) {
-                return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-            }, $row);
-        }, $results);
+        // $cleanedResults = array_map(function ($row) {
+        //     return array_map(function ($value) {
+        //         return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+        //     }, $row);
+        // }, $results);
         
-        // Convert result to JSON
-        $jsonResult = json_encode($cleanedResults);
-        // Echo or return the JSON-encoded result
-        echo $jsonResult;
-        // echo json_encode(json_decode($jsonResult));
-        // echo json_encode((new BoxRepository($this->conn))->getBoxes(), JSON_UNESCAPED_UNICODE);
+        // // Convert result to JSON
+        // $jsonResult = json_encode($cleanedResults);
+        // // Echo or return the JSON-encoded result
+        // echo $jsonResult;
+        // // echo json_encode(json_decode($jsonResult));
+        // // echo json_encode((new BoxRepository($this->conn))->getBoxes(), JSON_UNESCAPED_UNICODE);
     }
 
     public function getBoxStatus(){

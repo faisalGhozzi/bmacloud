@@ -37,19 +37,40 @@ function App() {
           {user && <Route path="/" element={<Dashboard />} />}
           {user && <Route path="/datenpunkte" element={<Datenpunkte />} />}
           {/* Anlagen */}
-          {user && <Route path="/anlagen/details" element={<AnlagenDetails />} />}
-          {user && <Route path="/anlagen/statistik" element={<AnlageStatistik />} />}
-          {user && <Route path="/anlagen/deaktivierte" element={<DeaktivierteAnlagen />} />}
+          {user && (
+            <Route path="/anlagen/details" element={<AnlagenDetails />} />
+          )}
+          {user && (
+            <Route path="/anlagen/statistik" element={<AnlageStatistik />} />
+          )}
+          {user && (
+            <Route
+              path="/anlagen/deaktivierte"
+              element={<DeaktivierteAnlagen />}
+            />
+          )}
           {user && <Route path="/anlagen/neue" element={<NeueAnlage />} />}
           {/* Übersicht */}
-          {user && <Route path="/ubersicht/information" element={<Information />} />}
-          {user && <Route path="/ubersicht/netzteile" element={<Netzteile />} />}
-          {user && <Route path="/ubersicht/vertretungszugriffe" element={<Vertretungszugriffe />} />}
+          {user && (
+            <Route path="/ubersicht/information" element={<Information />} />
+          )}
+          {user && (
+            <Route path="/ubersicht/netzteile" element={<Netzteile />} />
+          )}
+          {user && (
+            <Route
+              path="/ubersicht/vertretungszugriffe"
+              element={<Vertretungszugriffe />}
+            />
+          )}
           {/* the Rest */}
-          {user && <Route path="/servicebericht" element={<Servicebericht />} />}
-          {user && <Route path="/boxen" element={<Boxen />} />}
+          {user && (
+            <Route path="/servicebericht" element={<Servicebericht />} />
+          )}
+          {user && (
+            <Route path="/boxen" element={<Boxen mandant={user.mandant} />} />
+          )}
           {user && <Route path="/dateien" element={<Dateien />} />}
-
 
           {!user && (
             <>
