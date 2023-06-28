@@ -23,7 +23,7 @@ class BoxController {
      * Fetching all available maintenance boxes
      */
     public function getBoxes(){
-        $query = "SELECT * FROM `box`";
+        $query = "SELECT * FROM `box` order by boxid";
         $stmt = $this->conn->query($query);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
@@ -44,7 +44,6 @@ class BoxController {
     }
 
     public function getBoxStatus(){
-        var_dump($_GET);
         $boxid = $_GET['boxid'];
         $skey = $_GET['skey'];
         $sql = 'SELECT `svalue`, `ts` FROM `box_status` WHERE `boxid` = :boxid AND `skey` = :skey';

@@ -19,13 +19,15 @@ use services\Database;
 
 require('controllers/BoxController.php');
 use api\controllers\BoxController;
+require('controllers/AnlageController.php');
+use api\controllers\AnlageController;
 require('repository/BoxRepository.php');
 use api\repository\BoxRepository;
 $current_url = $_SERVER["REQUEST_URI"];
 
 // Handle query string
 
-if(str_contains($current_url, '?')){
+if(strpos($current_url, '?')){
     $current_url = explode('?', $current_url)[0];
 }
 
@@ -33,7 +35,8 @@ if(str_contains($current_url, '?')){
 
 $urls = [
     '/bmacloud/api/boxes' => ['BoxController@getBoxes'],
-    '/bmacloud/api/boxes/status' => ['BoxController@getBoxStatus']
+    '/bmacloud/api/boxes/status' => ['BoxController@getBoxStatus'],
+    '/bmacloud/api/anlage/id' => ['AnlageController@getAnlageById']
 ];
 
 // Check if route available
