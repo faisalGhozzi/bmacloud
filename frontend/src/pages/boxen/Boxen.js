@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
+import { Spinner } from "react-bootstrap";
 
 import * as AiIcons from "react-icons/ai";
 import * as FiIcons from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
 
 export default function Boxen(props) {
@@ -125,7 +127,7 @@ export default function Boxen(props) {
           </div>
         );
       } else {
-        return <span className="badge bg-warning">Offline</span>;
+        return <span className="badge bg-success">Online</span>;
       }
     } else {
       return <span className="badge badge-success">Online</span>;
@@ -161,11 +163,14 @@ export default function Boxen(props) {
       return "";
     }
   }
+
   return (
     <div className="main-page">
       <div className="container-fluid">
         {isLoading ? (
-          <h1>Loading...</h1>
+          <div style={{ width: 50, height: 50 }} className="center">
+            <Spinner color="blue" />
+          </div>
         ) : (
           <>
             <div className="row">
@@ -182,14 +187,19 @@ export default function Boxen(props) {
               </div>
 
               <div className="col-4" align="right">
-                <button className="btn btn-labeled btn-success" type="button">
+                <Link
+                  className="btn btn-labeled btn-success"
+                  to={`/boxen/edit`}
+                  state={{ from: "hello" }}
+                  type="button"
+                >
                   <span className="btn-label">
                     <i>
                       <FiIcons.FiPlusSquare />
                     </i>
                   </span>
                   Neue Box
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -253,19 +263,29 @@ export default function Boxen(props) {
                                     aria-labelledby="dropdownMenuLink"
                                   >
                                     <li>
-                                      <a href="" className="dropdown-item">
-                                        Bearbeiten
-                                      </a>
+                                      <Link
+                                        className="dropdown-item"
+                                        to="/boxen/gebaude"
+                                        state={{ data: data.boxid }}
+                                      >
+                                        Mehr
+                                      </Link>
                                     </li>
                                     <li>
-                                      <a href="" className="dropdown-item">
+                                      <Link
+                                        className="dropdown-item"
+                                        to={`/boxen/gebaude`}
+                                      >
                                         Live-Meldungen
-                                      </a>
+                                      </Link>
                                     </li>
                                     <li>
-                                      <a href="" className="dropdown-item">
+                                      <Link
+                                        className="dropdown-item"
+                                        to={`/boxen/gebaude`}
+                                      >
                                         Log
-                                      </a>
+                                      </Link>
                                     </li>
                                     {data.mqtt_ts > 0 ?? (
                                       <>

@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/start/Dashboard";
-import Boxen from "./pages/Boxen";
+import Boxen from "./pages/boxen/Boxen";
 import Dateien from "./pages/Dateien";
 import Servicebericht from "./pages/Servicebericht";
 import AnlagenDetails from "./pages/anlagen/AnlagenDetails";
@@ -24,6 +24,9 @@ import Datenpunkte from "./pages/start/Datenpunkte";
 import Information from "./pages/ubersicht/Information";
 import Netzteile from "./pages/ubersicht/Netzteile";
 import Vertretungszugriffe from "./pages/ubersicht/Vertretungszugriffe";
+import BoxenEdit from "./pages/boxen/Boxen_edit";
+import BuildingInfo from "./pages/boxen/Building/Building_info";
+import ConnectedDevices from "./pages/boxen/Building/Connected_devices";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -69,6 +72,11 @@ function App() {
           )}
           {user && (
             <Route path="/boxen" element={<Boxen mandant={user.mandant} />} />
+          )}
+          {user && <Route path="/boxen/edit" element={<BoxenEdit />} />}
+          {user && <Route path="/boxen/gebaude" element={<BuildingInfo />} />}
+          {user && (
+            <Route path="/boxen/gebaude/raume" element={<ConnectedDevices />} />
           )}
           {user && <Route path="/dateien" element={<Dateien />} />}
 

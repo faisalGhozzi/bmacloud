@@ -1,34 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function Dashboard() {
   return (
     <div className="main-page">
       <div className="container-fluid">
-        <h1>Dashboard</h1>
-        <h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-          temporibus omnis nobis quidem quaerat fugiat repudiandae, natus
-          consequuntur labore eius quam facilis ducimus quas laboriosam debitis?
-          Ratione nam culpa amet.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-          temporibus omnis nobis quidem quaerat fugiat repudiandae, natus
-          consequuntur labore eius quam facilis ducimus quas laboriosam debitis?
-          Ratione nam culpa amet.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-          temporibus omnis nobis quidem quaerat fugiat repudiandae, natus
-          consequuntur labore eius quam facilis ducimus quas laboriosam debitis?
-          Ratione nam culpa amet.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-          temporibus omnis nobis quidem quaerat fugiat repudiandae, natus
-          consequuntur labore eius quam facilis ducimus quas laboriosam debitis?
-          Ratione nam culpa amet.
-        </h1>
+        <h1>Willkommen</h1>
+        <h1>bei bma cloud sysadmin</h1>
       </div>
     </div>
   );
