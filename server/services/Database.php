@@ -8,7 +8,7 @@ class Database{
     private $db_host = 'localhost';
     private $db_name = 'bmacloud';
     private $db_username = 'root';
-    private $db_password = '';
+    private $db_password = 'root';
 
     public function dbConnection(){
         try{

@@ -4,7 +4,7 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const Axios = axios.create({
-  baseURL: "http://localhost/bmacloud/server/controllers/",
+  baseURL: "http://localhost:8888/bmacloud/server/controllers/",
 });
 
 export const UserContextProvider = ({ children }) => {

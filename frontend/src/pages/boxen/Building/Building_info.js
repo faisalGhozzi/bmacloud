@@ -53,25 +53,25 @@ export default function BuildingInfo(props) {
 
   const submitStatus = async (new_status, deviceid) => {
     axios.put(
-      `http://localhost/bmacloud/server/boxes/gebaude/raume/gerate/status?deviceid=${deviceid}&status=${new_status}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/raume/gerate/status?deviceid=${deviceid}&status=${new_status}`
     );
   };
 
   const submitDetectorsStatus = async (new_status) => {
     axios.put(
-      `http://localhost/bmacloud/server/boxes/gebaude/detectors/status?new_status=${new_status}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/detectors/status?new_status=${new_status}`
     );
   };
 
   const submitSirensStatus = async (new_status) => {
     axios.put(
-      `http://localhost/bmacloud/server/boxes/gebaude/sirenen/status?new_status=${new_status}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/sirenen/status?new_status=${new_status}`
     );
   };
 
   const fetchAllDevices = async () => {
     await fetch(
-      `http://localhost/bmacloud/server/boxes/gebaude/raume/gerate/devices?houseid=1`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/raume/gerate/devices?houseid=1`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -87,7 +87,7 @@ export default function BuildingInfo(props) {
   }
 
   const fetchHouse = async () => {
-    await fetch(`http://localhost/bmacloud/server/boxes/gebaude?boxid=${boxid}`)
+    await fetch(`http://localhost:8888/bmacloud/server/boxes/gebaude?boxid=${boxid}`)
       .then((response) => response.json())
       .then((data) => {
         setHouseAdress(data.adress);
@@ -96,7 +96,7 @@ export default function BuildingInfo(props) {
       })
       .then(async (data) => {
         await fetch(
-          `http://localhost/bmacloud/server/boxes/gebaude/raume?houseid=${data[0]}`
+          `http://localhost:8888/bmacloud/server/boxes/gebaude/raume?houseid=${data[0]}`
         )
           .then((response) => response.json())
           .then((data) => {

@@ -131,13 +131,13 @@ export default function ConnectedDevices(props) {
 
   const submitStatus = async (new_status, deviceid) => {
     axios.put(
-      `http://localhost/bmacloud/server/boxes/gebaude/raume/gerate/status?deviceid=${deviceid}&status=${new_status}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/raume/gerate/status?deviceid=${deviceid}&status=${new_status}`
     );
   };
 
   const fetchDevices = async () => {
     await fetch(
-      `http://localhost/bmacloud/server/boxes/gebaude/raume/gerate?houseid=${houseid}&roomid=${roomid}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/raume/gerate?houseid=${houseid}&roomid=${roomid}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -147,7 +147,7 @@ export default function ConnectedDevices(props) {
 
   const fetchAllDevices = async () => {
     await fetch(
-      `http://localhost/bmacloud/server/boxes/gebaude/raume/gerate/devices?houseid=${houseid}`
+      `http://localhost:8888/bmacloud/server/boxes/gebaude/raume/gerate/devices?houseid=${houseid}`
     )
       .then((response) => response.json())
       .then((data) => {

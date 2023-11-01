@@ -18,31 +18,23 @@ class BoxRepository{
         $this->conn = $conn;
     }
 
-    public function getBox($boxid, $mandantId){
-        $sql = "SELECT `boxid` FROM `box` a WHERE a.`mandant`='$mandantId' AND a.`boxid` = '".$boxid."'";
-
-        return mysql_query($sql);
+    public function getBoxes($mandant){
+        $sql = 'SELECT * FROM `box` WHERE `mandant` = :mandant ORDER BY `boxid`';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':mandant', $mandant);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
-    public function getBoxes(){
-        $query = "SELECT * FROM `box`";
-        $stmt = $this->conn->query($query);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        // Set headers for JSON response
-
-        $cleanedResults = array_map(function ($row) {
-            return array_map(function ($value) {
-                return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-            }, $row);
-        }, $results);
-        
-        // Convert result to JSON
-        $jsonResult = json_encode($cleanedResults);
-        // Echo or return the JSON-encoded result
-        return json_decode($jsonResult);
-        
-        
+    public function getBoxStatus($boxid, $skey){
+        $sql = 'SELECT `svalue`, `ts` FROM `box_status` WHERE `boxid` = :boxid AND `skey` = :skey';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':boxid', $boxid);
+        $stmt->bindParam(':skey', $skey);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
     }
 
     

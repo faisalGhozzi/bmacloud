@@ -14,7 +14,7 @@ export default function Boxen(props) {
 
   const fetchBoxes = async () => {
     await fetch(
-      `http://localhost/bmacloud/server/boxes?mandant=${user.mandant}`
+      `http://localhost:8888/bmacloud/server/boxes?mandant=${user.mandant}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -24,7 +24,7 @@ export default function Boxen(props) {
         await Promise.all(
           data.map((e, index, array) => {
             return fetch(
-              `http://localhost/bmacloud/server/boxes/status?boxid=${data[index].boxid}&skey=bc66_pegel`
+              `http://localhost:8888/bmacloud/server/boxes/status?boxid=${data[index].boxid}&skey=bc66_pegel`
             )
               .then((response) => response.json())
               .then((data) => {
@@ -40,7 +40,7 @@ export default function Boxen(props) {
         await Promise.all(
           data.map((e, index, array) => {
             return fetch(
-              `http://localhost/bmacloud/server/anlage/id?aid=${data[index].aid}&mandant=${user.mandant}`
+              `http://localhost:8888/bmacloud/server/anlage/id?aid=${data[index].aid}&mandant=${user.mandant}`
             )
               .then((response) => response.json())
               .then((data) => {
@@ -56,7 +56,7 @@ export default function Boxen(props) {
         await Promise.all(
           data.map((e, index, array) => {
             return fetch(
-              `http://localhost/bmacloud/server/boxes/status/boxid=${data[index].aid}&skey=protokoll`
+              `http://localhost:8888/bmacloud/server/boxes/status/boxid=${data[index].aid}&skey=protokoll`
             )
               .then((response) => response.json())
               .then((data) => {

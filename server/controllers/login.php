@@ -69,7 +69,7 @@ else:
 
                     // $jwt = new JwtHandler();
                     $token = (new Jwthandler())->jwtEncodeData(
-                        'http://localhost/bmacloud/',
+                        'http://localhost:8888/bmacloud/',
                         array("user_id"=> $row['uid'])
                     );
                     
